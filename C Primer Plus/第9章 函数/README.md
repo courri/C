@@ -21,3 +21,6 @@ function(&x);
 7. exec3.c
 8. exec4.c
 9. exec5.c
+10. exec6.c
+11. exec7.c
+12. exec10.c

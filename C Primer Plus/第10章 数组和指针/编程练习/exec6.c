@@ -7,7 +7,7 @@ Author: iamchuzhiyan@gmail.com
 
 //函数声明
 //把source中的元素复制到target中
-void copy_ptr(double *source, double *target, int n);
+void copy_ptr(const double *source, double *target, int n);
 //测试函数
 void test(void);
 
@@ -19,7 +19,7 @@ int main(void)
 }
 
 //函数定义
-void copy_ptr(double *source, double *target, int n)
+void copy_ptr(const double *source, double *target, int n)
 {
 	int i = 0;	//循环标记
 	for ( i = 0; i < n; i++) {
@@ -34,7 +34,7 @@ void test()
 {
 	int rows = 2;
 	int cols = 5;
-	double a[2][5] = {{0,1,2,3,4},{5,6,7,8,9}};
+	double const a[2][5] = {{0,1,2,3,4},{5,6,7,8,9}};
 	double b[2][5];
 	int i, j;	//循环标记
 	for ( i = 0; i < rows; i++) {	//一行一行地从a中复制元素到b

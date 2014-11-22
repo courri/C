@@ -1,2 +1,7 @@
-#C Primer Plus
-C Primer Plus 练习
+#C Primer Plus 练习
+
+
+----------
+
+ - 第9章 函数
+ - 第10章 数组与指针

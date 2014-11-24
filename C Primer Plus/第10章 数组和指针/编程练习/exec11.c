@@ -1,9 +1,8 @@
 /*----------------------------------------------
-File: F:\Study\workspace\C\C Primer Plus\第10章 数组和指针\编程练习\exec11.c
-Date: 2014/11/23 19:23:12
+File: F:\Study\workspace\C\C Primer Plus\第10章 数组和指针\编程练习\exec1.c
+Date: 2014/11/17 15:39:50
 Author: iamchuzhiyan@gmail.com
 ----------------------------------------------*/
-
 #include <stdio.h>
 #include <stdlib.h>
 #define MONTHS 12
@@ -13,13 +12,13 @@ Author: iamchuzhiyan@gmail.com
 //统计所有年份的总降水量
 float getYearsTotalRainfall(float rain[][MONTHS]);
 //统计所有年份每年的降水量
-void getYearlyTotalRainfall(float rain[][MONTHS], int years, int months, float *yearlyTotal);
+float* getYearlyTotalRainfall(float rain[][MONTHS]);
 //统计所有年份中每年的平均降水量
 float getYearlyAverageRainfall(float total);
 //统计所有年份中每个月份的总降水量
-void getMonthlyTotalRainfall(float rain[][MONTHS], int months, float *monthlyTotal);
+float* getMonthlyTotalRainfall(float rain[][MONTHS]);
 //统计每个月份的平均降水量
-void getMonthlyAverageRainfall(float *monthlyTotal, int months, float *monthlyAverage);
+float* getMonthlyAverageRainfall(float monthlyTotal[]);
 //打印每年的降水量
 void printYearlyTotalRainfall(float rain[][MONTHS]);
 //打印年平均降水量
@@ -48,33 +47,30 @@ int main(void)
 //统计所有年份的总降水量
 float getYearsTotalRainfall(float rain[][MONTHS])
 {
-	int y,m;	//循环标记
+	int year,month;	//循环标记
 	float total = 0;
-	float temp;
-	for (y = 0; y < YEARS; y++) {
-		for (m = 0; m < MONTHS; m++) {
-			//temp = rain[y][m];
-			//temp = *(&rain[0][0] + y*MONTHS + m);
-			temp = *(*(rain+y)+m);
-			total += temp;
+	for (year = 0; year < YEARS; year++) {
+		for (month = 0; month < MONTHS; month++) {
+			total += rain[year][month];
 		}
 	}
 	return total;
 }
 
 //统计所有年份中每年的降水量
-void getYearlyTotalRainfall(float rain[][MONTHS], int years, int months, float *yearlyTotal)
+float *getYearlyTotalRainfall(float rain[][MONTHS])
 {
-	int y,m;	//循环标记
+	int year,month;	//循环标记
 	float total = 0;
-	//float *yearlyTotal = (float *)malloc(YEARS*sizeof(float));
-	for (y = 0; y < years; y++) {
+	float *yearlyTotal = (float *)malloc(YEARS*sizeof(float));
+	for (year = 0; year < YEARS; year++) {
 		total = 0;
-		for (m = 0; m < months; m++) {
-			total += *(*(rain+y)+m);
+		for (month = 0; month < MONTHS; month++) {
+			total += rain[year][month];
 		}
-		*yearlyTotal++ = total;
+		yearlyTotal[year] = total;
 	}
+	return yearlyTotal;
 }
 
 //统计所有年份中每年的平均降水量
@@ -83,39 +79,39 @@ float getYearlyAverageRainfall(float total)
 	return total / YEARS;
 }
 
-void getMonthlyTotalRainfall(float rain[][MONTHS], int months, float *monthlyTotal)
+float* getMonthlyTotalRainfall(float rain[][MONTHS])
 {
-	int y,m;	//循环标记
+	int year,month;	//循环标记
 	float total = 0;
-/*	float *monthlyTotal = (float *)malloc(MONTHS*sizeof(float));*/
-
-	for (m = 0; m < months; m++) {
+	float *monthlyTotal = (float *)malloc(MONTHS*sizeof(float));
+	
+	for (month = 0; month < MONTHS; month++) {
 		total = 0;
-		for (y = 0; y < YEARS; y++) {
-			total += *(*(rain+y)+m);
+		for (year = 0; year < YEARS; year++) {
+			total += rain[year][month];
 		}
-		*monthlyTotal++ = total;
+		monthlyTotal[month] = total;
 	}
+	return monthlyTotal;
 }
 
-void getMonthlyAverageRainfall(float *monthlyTotal, int n, float *monthlyAverage)
+float* getMonthlyAverageRainfall(float monthlyTotal[MONTHS])
 {
 	int month;	//循环标记
-	for (month = 0; month < n; month++) {
-// 		*monthlyAverage = (*monthlyTotal) / YEARS;
-// 		monthlyTotal++;
-// 		monthlyAverage++;
-		*monthlyAverage++ = (*monthlyTotal++) / YEARS;
+	float *monthlyAverage = (float *)malloc(MONTHS*sizeof(float));
+	for (month = 0; month < MONTHS; month++) {
+		monthlyAverage[month] = monthlyTotal[month] / YEARS;
 	}
+	return monthlyAverage;
 }
 
 //打印每年的降水量
 void printYearlyTotalRainfall(float rain[][MONTHS])
 {
 	int year = 0;
-	float yearlyTotal[YEARS];
+	float *yearlyTotal = (float *)malloc(YEARS*sizeof(float));
 	printf(" YEAR	RAINFALL (inched) \n");
-	getYearlyTotalRainfall(rain, YEARS, MONTHS, yearlyTotal);//求每年（十二个月）的总降水量
+	yearlyTotal = getYearlyTotalRainfall(rain);
 	for (year = 0; year < YEARS; year++) {
 		printf("%5d %15.1f\n",2000 + year, yearlyTotal[year]);
 	}
@@ -132,15 +128,13 @@ void printYearlyAverageRainfall(float rain[][MONTHS])
 void printMonthlyAverageRainfall(float rain[][MONTHS])
 {
 	int month = 0;
-	float monthlyTotal[MONTHS];
-	float monthlyAverage[MONTHS];
-	getMonthlyTotalRainfall(rain, MONTHS, monthlyTotal);
-	getMonthlyAverageRainfall(monthlyTotal, MONTHS, monthlyAverage);
+	float* monthlyTotal = getMonthlyTotalRainfall(rain);
+	float* monthAverage = getMonthlyAverageRainfall(monthlyTotal);
 	printf("MONTHLY AVERAGES: \n");
 	printf(" Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec \n");
 
 	for (month = 0; month < MONTHS; month++) {
-		printf("%4.1f",monthlyAverage[month]);
+		printf("%4.1f",monthAverage[month]);
 	}
 	putchar('\n');
 }

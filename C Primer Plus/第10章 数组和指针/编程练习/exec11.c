@@ -1,5 +1,5 @@
 /*----------------------------------------------
-File: F:\Study\workspace\C\C Primer Plus\ç¬¬10ç«  æ•°ç»„å’ŒæŒ‡é’ˆ\ç¼–ç¨‹ç»ƒä¹ \exec11.c
+File: F:\Study\workspace\C\C Primer Plus\µÚ10ÕÂ Êı×éºÍÖ¸Õë\±à³ÌÁ·Ï°\exec11.c
 Date: 2014/11/23 19:23:12
 Author: iamchuzhiyan@gmail.com
 ----------------------------------------------*/
@@ -9,28 +9,28 @@ Author: iamchuzhiyan@gmail.com
 #define MONTHS 12
 #define YEARS 5
 
-//å‡½æ•°å£°æ˜
-//ç»Ÿè®¡æ‰€æœ‰å¹´ä»½çš„æ€»é™æ°´é‡
+//º¯ÊıÉùÃ÷
+//Í³¼ÆËùÓĞÄê·İµÄ×Ü½µË®Á¿
 float getYearsTotalRainfall(float rain[][MONTHS]);
-//ç»Ÿè®¡æ‰€æœ‰å¹´ä»½æ¯å¹´çš„é™æ°´é‡
-float* getYearlyTotalRainfall(float rain[][MONTHS]);
-//ç»Ÿè®¡æ‰€æœ‰å¹´ä»½ä¸­æ¯å¹´çš„å¹³å‡é™æ°´é‡
+//Í³¼ÆËùÓĞÄê·İÃ¿ÄêµÄ½µË®Á¿
+void getYearlyTotalRainfall(float rain[][MONTHS], int years, int months, float *yearlyTotal);
+//Í³¼ÆËùÓĞÄê·İÖĞÃ¿ÄêµÄÆ½¾ù½µË®Á¿
 float getYearlyAverageRainfall(float total);
-//ç»Ÿè®¡æ‰€æœ‰å¹´ä»½ä¸­æ¯ä¸ªæœˆä»½çš„æ€»é™æ°´é‡
-float* getMonthlyTotalRainfall(float rain[][MONTHS]);
-//ç»Ÿè®¡æ¯ä¸ªæœˆä»½çš„å¹³å‡é™æ°´é‡
-float* getMonthlyAverageRainfall(float monthlyTotal[]);
-//æ‰“å°æ¯å¹´çš„é™æ°´é‡
+//Í³¼ÆËùÓĞÄê·İÖĞÃ¿¸öÔÂ·İµÄ×Ü½µË®Á¿
+void getMonthlyTotalRainfall(float rain[][MONTHS], int months, float *monthlyTotal);
+//Í³¼ÆÃ¿¸öÔÂ·İµÄÆ½¾ù½µË®Á¿
+void getMonthlyAverageRainfall(float *monthlyTotal, int months, float *monthlyAverage);
+//´òÓ¡Ã¿ÄêµÄ½µË®Á¿
 void printYearlyTotalRainfall(float rain[][MONTHS]);
-//æ‰“å°å¹´å¹³å‡é™æ°´é‡
+//´òÓ¡ÄêÆ½¾ù½µË®Á¿
 void printYearlyAverageRainfall(float rain[][MONTHS]);
-//æ‰“å°æ¯æœˆçš„å¹³å‡é™æ°´é‡
+//´òÓ¡Ã¿ÔÂµÄÆ½¾ù½µË®Á¿
 void printMonthlyAverageRainfall(float rain[][MONTHS]);
 
-//ä¸»å‡½æ•°
+//Ö÷º¯Êı
 int main(void)
 {
-	//æŠŠæ•°ç»„åˆå§‹åŒ–ä¸º2000å¹´åˆ°2004å¹´çš„é™æ°´é‡æ•°æ®
+	//°ÑÊı×é³õÊ¼»¯Îª2000Äêµ½2004ÄêµÄ½µË®Á¿Êı¾İ
 	float rain[YEARS][MONTHS] = {
 		{4.3f,4.3f,4.3f,3.0f,2.0f,1.2f,0.2f,0.2f,0.4f,2.4f,3.5f,6.6f},
 		{8.5f,8.2f,1.2f,1.6f,2.4f,0.0f,5.2f,0.9f,0.3f,0.9f,1.4f,7.3f},
@@ -44,98 +44,103 @@ int main(void)
 	return 0;
 }
 
-//å‡½æ•°å®šä¹‰
-//ç»Ÿè®¡æ‰€æœ‰å¹´ä»½çš„æ€»é™æ°´é‡
+//º¯Êı¶¨Òå
+//Í³¼ÆËùÓĞÄê·İµÄ×Ü½µË®Á¿
 float getYearsTotalRainfall(float rain[][MONTHS])
 {
-	int year,month;	//å¾ªç¯æ ‡è®°
+	int y,m;	//Ñ­»·±ê¼Ç
 	float total = 0;
-	for (year = 0; year < YEARS; year++) {
-		for (month = 0; month < MONTHS; month++) {
-			total += rain[year][month];
+	float temp;
+	for (y = 0; y < YEARS; y++) {
+		for (m = 0; m < MONTHS; m++) {
+			//temp = rain[y][m];
+			//temp = *(&rain[0][0] + y*MONTHS + m);
+			temp = *(*(rain+y)+m);
+			total += temp;
 		}
 	}
 	return total;
 }
 
-//ç»Ÿè®¡æ‰€æœ‰å¹´ä»½ä¸­æ¯å¹´çš„é™æ°´é‡
-float *getYearlyTotalRainfall(float rain[][MONTHS])
+//Í³¼ÆËùÓĞÄê·İÖĞÃ¿ÄêµÄ½µË®Á¿
+void getYearlyTotalRainfall(float rain[][MONTHS], int years, int months, float *yearlyTotal)
 {
-	int year,month;	//å¾ªç¯æ ‡è®°
+	int y,m;	//Ñ­»·±ê¼Ç
 	float total = 0;
-	float *yearlyTotal = (float *)malloc(YEARS*sizeof(float));
-	for (year = 0; year < YEARS; year++) {
+	//float *yearlyTotal = (float *)malloc(YEARS*sizeof(float));
+	for (y = 0; y < years; y++) {
 		total = 0;
-		for (month = 0; month < MONTHS; month++) {
-			total += rain[year][month];
+		for (m = 0; m < months; m++) {
+			total += *(*(rain+y)+m);
 		}
-		yearlyTotal[year] = total;
+		*yearlyTotal++ = total;
 	}
-	return yearlyTotal;
 }
 
-//ç»Ÿè®¡æ‰€æœ‰å¹´ä»½ä¸­æ¯å¹´çš„å¹³å‡é™æ°´é‡
+//Í³¼ÆËùÓĞÄê·İÖĞÃ¿ÄêµÄÆ½¾ù½µË®Á¿
 float getYearlyAverageRainfall(float total)
 {
 	return total / YEARS;
 }
 
-float* getMonthlyTotalRainfall(float rain[][MONTHS])
+void getMonthlyTotalRainfall(float rain[][MONTHS], int months, float *monthlyTotal)
 {
-	int year,month;	//å¾ªç¯æ ‡è®°
+	int y,m;	//Ñ­»·±ê¼Ç
 	float total = 0;
-	float *monthlyTotal = (float *)malloc(MONTHS*sizeof(float));
-	
-	for (month = 0; month < MONTHS; month++) {
+/*	float *monthlyTotal = (float *)malloc(MONTHS*sizeof(float));*/
+
+	for (m = 0; m < months; m++) {
 		total = 0;
-		for (year = 0; year < YEARS; year++) {
-			total += rain[year][month];
+		for (y = 0; y < YEARS; y++) {
+			total += *(*(rain+y)+m);
 		}
-		monthlyTotal[month] = total;
+		*monthlyTotal++ = total;
 	}
-	return monthlyTotal;
 }
 
-float* getMonthlyAverageRainfall(float monthlyTotal[MONTHS])
+void getMonthlyAverageRainfall(float *monthlyTotal, int n, float *monthlyAverage)
 {
-	int month;	//å¾ªç¯æ ‡è®°
-	float *monthlyAverage = (float *)malloc(MONTHS*sizeof(float));
-	for (month = 0; month < MONTHS; month++) {
-		monthlyAverage[month] = monthlyTotal[month] / YEARS;
+	int month;	//Ñ­»·±ê¼Ç
+	for (month = 0; month < n; month++) {
+// 		*monthlyAverage = (*monthlyTotal) / YEARS;
+// 		monthlyTotal++;
+// 		monthlyAverage++;
+		*monthlyAverage++ = (*monthlyTotal++) / YEARS;
 	}
-	return monthlyAverage;
 }
 
-//æ‰“å°æ¯å¹´çš„é™æ°´é‡
+//´òÓ¡Ã¿ÄêµÄ½µË®Á¿
 void printYearlyTotalRainfall(float rain[][MONTHS])
 {
 	int year = 0;
-	float *yearlyTotal = (float *)malloc(YEARS*sizeof(float));
+	float yearlyTotal[YEARS];
 	printf(" YEAR	RAINFALL (inched) \n");
-	yearlyTotal = getYearlyTotalRainfall(rain);
+	getYearlyTotalRainfall(rain, YEARS, MONTHS, yearlyTotal);//ÇóÃ¿Äê£¨Ê®¶ş¸öÔÂ£©µÄ×Ü½µË®Á¿
 	for (year = 0; year < YEARS; year++) {
 		printf("%5d %15.1f\n",2000 + year, yearlyTotal[year]);
 	}
 }
-//æ‰“å°å¹´å¹³å‡é™æ°´é‡
+//´òÓ¡ÄêÆ½¾ù½µË®Á¿
 void printYearlyAverageRainfall(float rain[][MONTHS])
 {
-	//æ±‚æ€»é™æ°´é‡
+	//Çó×Ü½µË®Á¿
 	float total = getYearsTotalRainfall(rain);
 	float average = getYearlyAverageRainfall(total);
 	printf("The yearly average is %.1f inches.\n",average);
 }
-//æ‰“å°æ¯æœˆçš„å¹³å‡é™æ°´é‡
+//´òÓ¡Ã¿ÔÂµÄÆ½¾ù½µË®Á¿
 void printMonthlyAverageRainfall(float rain[][MONTHS])
 {
 	int month = 0;
-	float* monthlyTotal = getMonthlyTotalRainfall(rain);
-	float* monthAverage = getMonthlyAverageRainfall(monthlyTotal);
+	float monthlyTotal[MONTHS];
+	float monthlyAverage[MONTHS];
+	getMonthlyTotalRainfall(rain, MONTHS, monthlyTotal);
+	getMonthlyAverageRainfall(monthlyTotal, MONTHS, monthlyAverage);
 	printf("MONTHLY AVERAGES: \n");
 	printf(" Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec \n");
 
 	for (month = 0; month < MONTHS; month++) {
-		printf("%4.1f",monthAverage[month]);
+		printf("%4.1f",monthlyAverage[month]);
 	}
 	putchar('\n');
 }

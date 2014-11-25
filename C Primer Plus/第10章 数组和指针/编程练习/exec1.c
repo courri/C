@@ -67,7 +67,6 @@ void getYearlyTotalRainfall(float rain[][MONTHS], int years, int months, float *
 {
 	int y,m;	//循环标记
 	float total = 0;
-	//float *yearlyTotal = (float *)malloc(YEARS*sizeof(float));
 	for (y = 0; y < years; y++) {
 		total = 0;
 		for (m = 0; m < months; m++) {
@@ -87,8 +86,6 @@ void getMonthlyTotalRainfall(float rain[][MONTHS], int months, float *monthlyTot
 {
 	int y,m;	//循环标记
 	float total = 0;
-/*	float *monthlyTotal = (float *)malloc(MONTHS*sizeof(float));*/
-
 	for (m = 0; m < months; m++) {
 		total = 0;
 		for (y = 0; y < YEARS; y++) {
@@ -113,12 +110,16 @@ void getMonthlyAverageRainfall(float *monthlyTotal, int n, float *monthlyAverage
 void printYearlyTotalRainfall(float rain[][MONTHS])
 {
 	int year = 0;
-	float yearlyTotal[YEARS];
+	float *yearlyTotal;
+	float *temp;
+	yearlyTotal = (float*)malloc(MONTHS * sizeof(float));	//动态分配内存
 	printf(" YEAR	RAINFALL (inched) \n");
 	getYearlyTotalRainfall(rain, YEARS, MONTHS, yearlyTotal);//求每年（十二个月）的总降水量
+	temp = yearlyTotal;
 	for (year = 0; year < YEARS; year++) {
-		printf("%5d %15.1f\n",2000 + year, yearlyTotal[year]);
+		printf("%5d %15.1f\n",2000 + year, *yearlyTotal++);
 	}
+	free(temp);		//释放内存
 }
 //打印年平均降水量
 void printYearlyAverageRainfall(float rain[][MONTHS])

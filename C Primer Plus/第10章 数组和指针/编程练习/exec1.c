@@ -33,13 +33,22 @@ void printYearlyAverageRainfall2(float *prain);
 void printMonthlyAverageRainfall(float rain[][MONTHS]);
 void printMonthlyAverageRainfall2(float *rain);
 //测试函数
-void test(void);
-void ptest(void);
+void test(float rain[][MONTHS], int years, int months);
+void ptest(float *prain, int years, int months);
 //主函数
 int main(void)
 {
-	ptest();
-	test();
+	//把数组初始化为2000年到2004年的降水量数据
+	float rain[YEARS][MONTHS] = {
+		{4.3f,4.3f,4.3f,3.0f,2.0f,1.2f,0.2f,0.2f,0.4f,2.4f,3.5f,6.6f},
+		{8.5f,8.2f,1.2f,1.6f,2.4f,0.0f,5.2f,0.9f,0.3f,0.9f,1.4f,7.3f},
+		{9.1f,8.5f,6.7f,4.3f,2.1f,0.8f,0.2f,0.2f,1.1f,2.3f,6.1f,8.4f},
+		{7.2f,9.9f,8.4f,3.3f,1.2f,0.8f,0.4f,0.0f,0.6f,1.7f,4.3f,6.2f},
+		{7.6f,5.6f,3.8f,2.8f,3.8f,0.2f,0.0f,0.0f,0.0f,1.3f,2.6f,5.2f}	
+	};
+	float *prain = &rain[0][0];
+	test(rain,YEARS,MONTHS);
+	ptest(prain,YEARS,MONTHS);
 	return 0;
 }
 
@@ -154,7 +163,8 @@ void getMonthlyTotalRainfall2(float *prain, int years, int months, float *monthl
 			temp = temp+months;			//每隔months个取一次值。即在二维数组中就是沿着竖直方向取值。
 		}
 		*monthlyTotal++ = total;
-		prain = temp++;					//temp右移一位，赋值给prain。即在二维数组的水平方向取值。	
+		prain = prain+1;				//prain右移一位，赋值给temp。
+		temp = prain;					//prain右移一位，赋值给temp。即在二维数组的水平方向取值。	
 	}
 }
 
@@ -246,33 +256,17 @@ void printMonthlyAverageRainfall2(float *prain)
 	putchar('\n');
 }
 
-void test(void)
+void test(float rain[][MONTHS], int years, int months)
 {
-	//把数组初始化为2000年到2004年的降水量数据
-	float rain[YEARS][MONTHS] = {
-		{4.3f,4.3f,4.3f,3.0f,2.0f,1.2f,0.2f,0.2f,0.4f,2.4f,3.5f,6.6f},
-		{8.5f,8.2f,1.2f,1.6f,2.4f,0.0f,5.2f,0.9f,0.3f,0.9f,1.4f,7.3f},
-		{9.1f,8.5f,6.7f,4.3f,2.1f,0.8f,0.2f,0.2f,1.1f,2.3f,6.1f,8.4f},
-		{7.2f,9.9f,8.4f,3.3f,1.2f,0.8f,0.4f,0.0f,0.6f,1.7f,4.3f,6.2f},
-		{7.6f,5.6f,3.8f,2.8f,3.8f,0.2f,0.0f,0.0f,0.0f,1.3f,2.6f,5.2f}	
-	};
 	printYearlyTotalRainfall(rain);
 	printYearlyAverageRainfall(rain);
 	printMonthlyAverageRainfall(rain);
 }
 
-void ptest(void)
+void ptest(float *prain, int years, int months)
 {
-	//把数组初始化为2000年到2004年的降水量数据
-	float rain[YEARS][MONTHS] = {
-		{4.3f,4.3f,4.3f,3.0f,2.0f,1.2f,0.2f,0.2f,0.4f,2.4f,3.5f,6.6f},
-		{8.5f,8.2f,1.2f,1.6f,2.4f,0.0f,5.2f,0.9f,0.3f,0.9f,1.4f,7.3f},
-		{9.1f,8.5f,6.7f,4.3f,2.1f,0.8f,0.2f,0.2f,1.1f,2.3f,6.1f,8.4f},
-		{7.2f,9.9f,8.4f,3.3f,1.2f,0.8f,0.4f,0.0f,0.6f,1.7f,4.3f,6.2f},
-		{7.6f,5.6f,3.8f,2.8f,3.8f,0.2f,0.0f,0.0f,0.0f,1.3f,2.6f,5.2f}	
-	};
-	float *prain = &rain[0][0];
+
 	printYearlyTotalRainfall2(prain);
 	printYearlyAverageRainfall2(prain);
-	printMonthlyAverageRainfall(rain);
+	printMonthlyAverageRainfall2(prain);
 }

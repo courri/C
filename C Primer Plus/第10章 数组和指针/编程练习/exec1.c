@@ -91,6 +91,17 @@ void getYearlyTotalRainfall(float rain[][MONTHS], int years, int months, float *
 	}
 }
 
+/*
+ * @function    : getYearlyTotalRainfall2
+ * @author   	: ZhangLe
+ * @date     	: 2014/11/26 23:13
+ * @version  	: ver 1.0
+ * @inparam  	: prain 指针变量，指向rain
+ * @inparam  	: years 总年数 5
+ * @inparam  	: months 总月数 12
+ * @outparam    : yearlyTotal 每一年的总降水量
+ * @description : 统计所有年份中每年的降水量
+ */
 void getYearlyTotalRainfall2(float *prain, int years, int months, float *yearlyTotal)
 {
 	int y,m;	//循环标记
@@ -104,7 +115,15 @@ void getYearlyTotalRainfall2(float *prain, int years, int months, float *yearlyT
 	}
 }
 
-//统计所有年份中每年的平均降水量
+/*
+ * @function    : getYearlyAverageRainfall
+ * @author   	: ZhangLe
+ * @date     	: 2014/11/26 23:15
+ * @version  	: ver 1.0
+ * @inparam  	: total 所有的降水量
+ * @outparam    : 返回 每年的平均降水量
+ * @description : 统计所有年份中每年的平均降水量
+ */
 float getYearlyAverageRainfall(float total)
 {
 	return total / YEARS;
@@ -122,19 +141,20 @@ void getMonthlyTotalRainfall(float rain[][MONTHS], int months, float *monthlyTot
 		*monthlyTotal++ = total;
 	}
 }
-//这个还有问题
+
 void getMonthlyTotalRainfall2(float *prain, int years, int months, float *monthlyTotal)
 {
-	int y,m;	//循环标记
+	int y,m;							//循环标记
 	float total = 0;
+	float *temp = prain;				//利用一个临时指针变量存储prain
 	for (m = 0; m < months; m++) {
 		total = 0;
 		for (y = 0; y < years; y++) {
-			total += *prain;
-			prain = prain+12;
+			total += *temp;
+			temp = temp+months;			//每隔months个取一次值。即在二维数组中就是沿着竖直方向取值。
 		}
 		*monthlyTotal++ = total;
-		prain = prain++;
+		prain = temp++;					//temp右移一位，赋值给prain。即在二维数组的水平方向取值。	
 	}
 }
 

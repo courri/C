@@ -5,17 +5,21 @@
 /* º¯ÊýÉùÃ÷                                                                     */
 /************************************************************************/
 
-int myStrLen(char *str);
+int myStrLen(char *pstr);
 char* myStrLwr(char str[]);
 char* myStrUpr(char str[]);
-
+char* myStrCpy(char *pdst, char *psrc);
 int main(void)
 {
 	char *str = "Hello, World!";
-	char str1[]= "Hello, World!";
+	char str1[] = "Hello, World!";
+	char str2[20];
+	char *cpystr;
 	printf("Length of the string is %d.\n",myStrLen(str));
 	printf("Lower of the string is %s.\n",myStrLwr(str1));
 	printf("Upper of the string is %s.\n",myStrUpr(str1));
+	cpystr = myStrCpy(str2, str1);
+	printf("Copy str1 to str2, then str2 is %s.\n",cpystr);
 }
 
 /************************************************************************/
@@ -85,4 +89,24 @@ char* myStrUpr(char str[])
 		str++;
 	}
 	return nstr;
+}
+/*
+ * @function    : myStrCpy
+ * @author   	: ZhangLe
+ * @date     	: 2014/11/28 20:38
+ * @version  	: ver 1.0
+ * @inparam  	: pdst, psrc
+ * @outparam    : void
+ * @description : ¸´ÖÆ×Ö·û´®
+ */
+char* myStrCpy(char *pdst, char *psrc)
+{
+	char *pstr = pdst;
+	while('\0' != *psrc){
+		*pdst = *psrc;
+		psrc++;
+		pdst++;
+	}
+	*pdst = '\0';
+	return pstr;
 }

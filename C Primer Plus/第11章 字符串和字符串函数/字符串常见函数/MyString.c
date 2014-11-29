@@ -10,6 +10,7 @@ char* myStrLwr(char str[]);
 char* myStrUpr(char str[]);
 char* myStrCpy(char *pdst, char *psrc);
 char* myStrCat(char *pdst, char *psrc);
+char* myStrnCat(char *pdst, char *psrc, size_t count);
 int main(void)
 {
 	char *str = "Hello, World!";
@@ -24,6 +25,7 @@ int main(void)
 	cpystr = myStrCpy(str2, str1);
 	printf("Copy str1 to str2, then str2 is %s.\n",cpystr);
 	printf("Cat b to a %s.\n", myStrCat(a,b));
+	printf("Cat b to a %s.\n", myStrnCat(a,b,2));
 }
 
 /************************************************************************/
@@ -138,6 +140,42 @@ char *myStrCat(char *pdst, char *psrc)
 		*pdst = *psrc;
 		psrc++;
 		pdst++;
+	}
+	return ptmp;
+}
+
+/*
+ * @function    : myStrnCat
+ * @author   	: ZhangLe
+ * @date     	: 2014/11/29 19:31
+ * @version  	: ver 1.0
+ * @inparam  	: pdst 
+ * @inparam  	: psrc
+ * @inparam  	: count
+ * @outparam    : void
+ * @description : 
+ */
+char *myStrnCat(char *pdst, char *psrc, size_t count)
+{
+	char *ptmp = pdst;
+	if (count)
+	{
+		while (*pdst != '\0')
+		{
+			pdst++;
+		}
+		while (*psrc != '\0')
+		{
+			*pdst = *psrc;
+			psrc++;
+			pdst++;
+			count--;
+			if (count <= 0)
+			{
+				*pdst = '\0';
+				break;
+			}
+		}
 	}
 	return ptmp;
 }

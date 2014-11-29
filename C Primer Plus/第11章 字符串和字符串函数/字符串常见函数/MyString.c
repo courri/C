@@ -9,17 +9,21 @@ int myStrLen(char *pstr);
 char* myStrLwr(char str[]);
 char* myStrUpr(char str[]);
 char* myStrCpy(char *pdst, char *psrc);
+char* myStrCat(char *pdst, char *psrc);
 int main(void)
 {
 	char *str = "Hello, World!";
 	char str1[] = "Hello, World!";
 	char str2[20];
 	char *cpystr;
+	char a[20] = "Hello";
+	char b[] = " World";
 	printf("Length of the string is %d.\n",myStrLen(str));
 	printf("Lower of the string is %s.\n",myStrLwr(str1));
 	printf("Upper of the string is %s.\n",myStrUpr(str1));
 	cpystr = myStrCpy(str2, str1);
 	printf("Copy str1 to str2, then str2 is %s.\n",cpystr);
+	printf("Cat b to a %s.\n", myStrCat(a,b));
 }
 
 /************************************************************************/
@@ -109,4 +113,31 @@ char* myStrCpy(char *pdst, char *psrc)
 	}
 	*pdst = '\0';
 	return pstr;
+}
+
+/*
+ * @function    : myStrCat
+ * @author   	: ZhangLe
+ * @date     	: 2014/11/29 19:15
+ * @version  	: ver 1.0
+ * @inparam  	: pdst the string to be appended to
+ * @inparam		: psrc the string to append to it
+ * @outparam    : void
+ * @description : 
+ */
+char *myStrCat(char *pdst, char *psrc)
+{
+	char *ptmp = pdst;
+	//ÕÒµ½pdstµÄ½áÎ²
+	while (*pdst)
+	{
+		pdst++;
+	}
+	while (*psrc != '\0')
+	{
+		*pdst = *psrc;
+		psrc++;
+		pdst++;
+	}
+	return ptmp;
 }

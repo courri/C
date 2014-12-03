@@ -1,12 +1,16 @@
 //  [12/2/2014 Happy]
 #include <stdio.h>
-
+#define LEN 81
 char* deleteSpacefromString(char *str);
 
 int main(void)
 {
-	char str[] = "Hello My World .";
-	puts(deleteSpacefromString(str));
+	char str[LEN];
+	while (gets(str) && str[0] != '\0')
+	{
+		puts(deleteSpacefromString(str));
+	}
+	puts("Bye.");
 	return 0;
 }
 

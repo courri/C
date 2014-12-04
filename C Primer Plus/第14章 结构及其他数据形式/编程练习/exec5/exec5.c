@@ -51,13 +51,29 @@ int main(void)
  */
 void input(Students s[], int len)
 {
-	int i;	//循环标记
-	puts("Please enter data for students.");
-	for (i=0; i<len; ++i)
+// 	int i;	//循环标记
+// 	puts("Please enter data for students.");
+// 	for (i=0; i<len; ++i)
+// 	{
+// 		puts("Please enter name(last first) and grade(1 2 3).");
+// 		scanf("%s %s %.2f %.2f %.2f",&s[i].name.first, &s[i].name.last, &s[i].grade[0], &s[i].grade[1], &s[i].grade[2]);
+// 	}
+
+	int i,j;
+	for (i = 0; i < len; i++)
 	{
-		puts("Please enter name and grade.");
-		scanf("%s %s %.2f %.2f %.2f",&s[i].name.first, &s[i].name.last, &s[i].grade[0], &s[i].grade[1], &s[i].grade[2]);
+		printf ("Please enter scores for %s %s:\n",
+			s[i].name.first, s[i].name.last);
+		for (j = 0; j < LEN; j++)
+		{
+			while (scanf("%f", &s[i].grade[j]) != 1)
+			{
+				scanf("%f");
+				puts("Please use numeric input.");
+			}
+		}
 	}
+
 }
 /*
  * @function    : calculateAverage
@@ -77,12 +93,13 @@ double calculateAverage(Students s[], int len)
 	for (i=0; i<len; ++i)
 	{
 		//求出总分
+		total = 0;
 		for (j=0; j<LEN; ++j)	
 		{
 			total += s[i].grade[i];
 		}
 		//求出平均分
-		avg = total / 3;
+		avg = total / (LEN * 1.0);
 		//把平均分赋值给对应的人
 		s[i].average = avg;
 	}
@@ -103,13 +120,14 @@ void print(Students s[], int len)
 	for (i=0; i<len; ++i)
 	{
 		//输出姓名
-		printf("%s %s",s[i].name.last,s[i].name.first);
+		printf("%s %s : ",s[i].name.last,s[i].name.first);
 		//输出分数
 		for (j=0; j<LEN; ++j)	
 		{
-			printf("%.2f",s[i].grade[i]);
+			printf("%.2f ",s[i].grade[i]);
 		}
 		//输出平均分
-		printf("%.2f",s[i].average);
+		printf("%.2f \n",s[i].average);
 	}
+	
 }

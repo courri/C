@@ -10,7 +10,7 @@ typedef struct names {
 
 typedef struct students {
 	Name name;
-	double grade[3];
+	int grade[3];
 	double average;
 } Students;
 
@@ -51,29 +51,15 @@ int main(void)
  */
 void input(Students s[], int len)
 {
-// 	int i;	//循环标记
-// 	puts("Please enter data for students.");
-// 	for (i=0; i<len; ++i)
-// 	{
-// 		puts("Please enter name(last first) and grade(1 2 3).");
-// 		scanf("%s %s %.2f %.2f %.2f",&s[i].name.first, &s[i].name.last, &s[i].grade[0], &s[i].grade[1], &s[i].grade[2]);
-// 	}
-
-	int i,j;
+	int i,j;	//循环标记
 	for (i = 0; i < len; i++)
 	{
-		printf ("Please enter scores for %s %s:\n",
-			s[i].name.first, s[i].name.last);
+		printf ("Please enter scores for %s %s:\n",s[i].name.first, s[i].name.last);
 		for (j = 0; j < LEN; j++)
 		{
-			while (scanf("%f", &s[i].grade[j]) != 1)
-			{
-				scanf("%f");
-				puts("Please use numeric input.");
-			}
+			scanf("%d", &(s[i].grade[j]));
 		}
 	}
-
 }
 /*
  * @function    : calculateAverage
@@ -96,7 +82,7 @@ double calculateAverage(Students s[], int len)
 		total = 0;
 		for (j=0; j<LEN; ++j)	
 		{
-			total += s[i].grade[i];
+			total += s[i].grade[j];
 		}
 		//求出平均分
 		avg = total / (LEN * 1.0);
@@ -124,10 +110,9 @@ void print(Students s[], int len)
 		//输出分数
 		for (j=0; j<LEN; ++j)	
 		{
-			printf("%.2f ",s[i].grade[i]);
+			printf("%d ",s[i].grade[j]);
 		}
 		//输出平均分
-		printf("%.2f \n",s[i].average);
+		printf("%f \n",s[i].average);
 	}
-	
 }

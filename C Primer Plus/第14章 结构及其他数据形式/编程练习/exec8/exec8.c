@@ -172,6 +172,15 @@ void showNumofEmptySeats(seat airplane[], int length)
 	}
 }
 
+/*
+ * @function    : showListofEmptySeats
+ * @author   	: ZhangLe
+ * @date     	: 2014/12/7 21:56
+ * @version  	: ver 1.0
+ * @inparam  	: void
+ * @outparam    : void
+ * @description : show list of empty seats
+ */
 void showListofEmptySeats(seat airplane[], int length)
 {
 	int i;	//Ñ­»·±ê¼Ç

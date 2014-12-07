@@ -27,6 +27,7 @@ int main(void)
 	showMenu();
 	initSeats(airplane,LEN2);
 	showSeatsInfo(airplane,LEN2);
+	showNumofEmptySeats(airplane,LEN2);
 	return 0;
 }
 
@@ -130,4 +131,67 @@ void showSeatsInfo(seat airplane[], int length)
 	{
 		printf("%s           %s     %d           %d\n",airplane[i].first_name, airplane[i].last_name, airplane[i].seat_id, airplane[i].seat_mark);
 	}
+}
+
+/*
+ * @function    : showNumofEmptySeats
+ * @author   	: ZhangLe
+ * @date     	: 2014/12/7 21:31
+ * @version  	: ver 1.0
+ * @inparam  	: void
+ * @outparam    : void
+ * @description : 显示空座位的数量
+ */
+void showNumofEmptySeats(seat airplane[], int length)
+{
+	int i;	//循环标记
+	int num = 0; //空座位的数量
+	for (i=0; i<length; i++)
+	{
+		if (airplane[i].seat_mark == 0)	//seat_mark为0，表示座位空
+		{
+			num ++;	//加1
+		}
+	}
+	//show num
+	if (num == 0)
+	{
+		printf("There is no seat empty.");
+	} 
+	else
+	{
+		if (num == 1)
+		{
+			printf("There is %d seats empty.",num);
+		} 
+		else
+		{
+			printf("There are %d seats empty.",num);
+		}
+	}
+}
+
+void showListofEmptySeats(seat airplane[], int length)
+{
+
+}
+
+void showAlphabeticalListofSeats(seat airplane[], int length)
+{
+
+}
+
+void assignSeatAssignment()
+{
+
+}
+
+void deleteSeatAssignment()
+{
+
+}
+
+void quit()
+{
+
 }
